@@ -24,6 +24,8 @@ public class Nimsys {
     }
 
     public void setUpNim(){
+        isPlayer1turn = true;
+        isPlayer2turn= false;
         System.out.print("Enter upper bound : ");
         userInputIntger();
         this.UPPER_BOUND = inputInteger;
@@ -43,8 +45,10 @@ public class Nimsys {
     }
 
     public String userInputString(){
+        inputString ="";
         Scanner keyboard = new Scanner(System.in);
-        return inputString = keyboard.nextLine();
+        if (keyboard.hasNextLine()) { inputString = keyboard.nextLine(); }
+        return inputString;
     }
 
     private void userInputIntger(){
@@ -56,12 +60,16 @@ public class Nimsys {
 
     public void help(){
         System.out.print("$");
-        System.out.println("help ");
+        System.out.println(" help ");
         System.out.println("Type commands to list all available commands");
         System.out.println("Type start to play game");
         System.out.println("Player to remove the last stone loses!");
-
-        commands();
+        System.out.println();
+        System.out.print("$ ");
+        userInputString();
+        if(inputString.equalsIgnoreCase("commands")){
+            commands();
+        }
     }
 
     public void commands(){
@@ -71,6 +79,7 @@ public class Nimsys {
         userInputString();
         System.out.print("");
         if (inputString.equalsIgnoreCase("start")){
+            System.out.println();
             create1stPlayer();
             create2ndPlayer();
             setUpNim();
@@ -130,7 +139,7 @@ public class Nimsys {
             else if ((move <= UPPER_BOUND) && ((remainingStone - move == 0))) {
                 System.out.println("Game Over");
                 System.out.println(player2  + " wins!");
-                player1_win_count ++;
+                player2_win_count ++;
                 gameCount ++ ;
                 anotherRound();
             }
@@ -155,7 +164,7 @@ public class Nimsys {
             else if ((move <= UPPER_BOUND) && ((remainingStone - move == 0))) {
                 System.out.println("Game Over");
                 System.out.println(player1  + " wins!");
-                player2_win_count ++;
+                player1_win_count ++;
                 gameCount ++;
                 anotherRound();
 
@@ -182,10 +191,11 @@ public class Nimsys {
             System.out.println(player1 + " won " + player1_win_count + " out of " + gameCount + " played ");
             System.out.println(player2 + " won " + player2_win_count + " out of " + gameCount + " played");
             System.out.println("$");
-            help();
+            System.out.println("$ exit");
+                exit();
+/*            help();
             commands();
-
-            System.out.println();
+            System.out.println();*/
         }
     }
 
@@ -209,12 +219,9 @@ public class Nimsys {
             }
             else round1.exit();
         }while(round1.exit !=true);
-        System.out.println("$");
-        System.out.println("$ exit");
         System.out.println();
         round1.printThx();
-}
-
+    }
 }
 
 
